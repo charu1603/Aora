@@ -172,7 +172,9 @@
   background-color: #000;
 
 }
-
+.streak{
+  background-color: black;
+}
 .reset{
   background-color: #e7e6e6;
   padding: 5px;

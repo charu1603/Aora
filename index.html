@@ -25,6 +25,11 @@
                 <div class="player2">
                 <label for="playerTwoSymbol">Player 2 Symbol:</label>
                 <input type="text" id="playerTwoSymbol" value="O" maxlength="1"></div>
+                <div class="streak">
+                  <label for="boardSize" class="n-streak">Win streak:</label>
+                 
+                <input type="number" id="winStreak" min="3" max="10" value="3" placeholder="Enter win streak (3 to n)">
+</div>
             </div>
             <div class="controls">
               <button class="startGameButton"  onclick="initializeGame()">Start Game</button>

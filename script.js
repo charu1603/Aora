@@ -18,23 +18,6 @@ function fire(particleRatio, opts) {
   });
 }
 
-function initializeGame() {
-    // Get user input for custom settings
-    boardSize = parseInt(document.getElementById("boardSize").value);
-    playerOneSymbol = document.getElementById("playerOneSymbol").value || "X";
-    playerTwoSymbol = document.getElementById("playerTwoSymbol").value || "O";
-
-    // Set current player to player 1 initially
-    currentPlayer = playerOneSymbol;
-    gameOver = false;
-
-    // Create the board as a 2D array
-    board = Array(boardSize).fill(null).map(() => Array(boardSize).fill(null));
-
-    // Draw the board UI
-    drawBoard();
-    updateMessage(`Player ${currentPlayer}'s turn`);
-}
 
 function drawBoard() {
     const boardElement = document.getElementById("board");
@@ -80,29 +63,42 @@ function handleCellClick(event) {
         updateMessage(`Player ${currentPlayer}'s turn`);
     }
 }
+let winStreak;
+
+function initializeGame() {
+    // Get user input for custom settings
+    boardSize = parseInt(document.getElementById("boardSize").value);
+    playerOneSymbol = document.getElementById("playerOneSymbol").value || "X";
+    playerTwoSymbol = document.getElementById("playerTwoSymbol").value || "O";
+    winStreak = parseInt(document.getElementById("winStreak").value) || 3;
+
+    currentPlayer = playerOneSymbol;
+    gameOver = false;
+    board = Array(boardSize).fill(null).map(() => Array(boardSize).fill(null));
+
+    drawBoard();
+    updateMessage(`Player ${currentPlayer}'s turn`);
+}
 
 function checkWin(row, col) {
     row = parseInt(row);
     col = parseInt(col);
 
-    // Check row
-    if (board[row].every(cell => cell === currentPlayer)) {
-        return true;
-    }
+    const checkLine = (rIncrement, cIncrement) => {
+        let count = 0;
+        for (let i = 0; i < winStreak; i++) {
+            const r = row + i * rIncrement;
+            const c = col + i * cIncrement;
+            if (r >= 0 && r < boardSize && c >= 0 && c < boardSize && board[r][c] === currentPlayer) {
+                count++;
+            } else {
+                break;
+            }
+        }
+        return count === winStreak;
+    };
 
-    // Check column
-    if (board.every(row => row[col] === currentPlayer)) {
-        return true;
-    }
-
-    // Check diagonal (top-left to bottom-right)
-    if (row === col && board.every((_, i) => board[i][i] === currentPlayer)) {
-        return true;
-    }
-
-    // Check anti-diagonal (top-right to bottom-left)
-    if (row + col === boardSize - 1 &&
-        board.every((_, i) => board[i][boardSize - 1 - i] === currentPlayer)) {
+    if (checkLine(0, 1) || checkLine(1, 0) || checkLine(1, 1) || checkLine(1, -1)) {
         return true;
     }
 
