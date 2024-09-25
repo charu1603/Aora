@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customizable Tic-Tac-Toe</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+   
+</head>
+<body>
+ 
+    <div class="container">
+    
+
+        <div class="header">
+            <div class="gridSize">
+              <div class="size">
+                <label for="boardSize" class="n-size">Select Board Size:</label>
+                <input type="number" id="boardSize" value="3" min="3" max="10"></div>
+                <div class="player1">
+                <label for="playerOneSymbol">Player 1 Symbol:</label>
+                <input type="text" id="playerOneSymbol" value="X" maxlength="1"></div>
+                <div class="player2">
+                <label for="playerTwoSymbol">Player 2 Symbol:</label>
+                <input type="text" id="playerTwoSymbol" value="O" maxlength="1"></div>
+            </div>
+            <div class="controls">
+              <button class="startGameButton"  onclick="initializeGame()">Start Game</button>
+            </div>
+            
+           
+        </div>
+        <div class="canvasGrid">
+            <div class="boardSize">
+              
+<div id="winMessage" class="win-message"></div>
+
+
+                <div id="message"></div>
+                <div class="board" id="board"></div>
+                <div class="control">
+                    <button onclick="resetGame()"class="reset">Reset Game</button>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+  
+   
+    <audio id="winSound" src="sound.mp3" preload="auto"></audio>
+
+    <!-- Your custom script -->
+    <script src="script.js"></script>
+</body>
+</html>
